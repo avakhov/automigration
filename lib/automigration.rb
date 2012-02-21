@@ -1,4 +1,5 @@
 require 'rails/engine'
+require 'ansi'
 require 'automigration/version'
 require 'automigration/migrator'
 require 'automigration/fields/sys/base'

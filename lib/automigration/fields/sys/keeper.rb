@@ -94,7 +94,7 @@ module Automigration
                 opts = args.extract_options!
                 raise "wrong arguments" unless args.size == 2
                 name = args[0]
-                as = Utils.to_string(args[1]).to_sym
+                as = args[1].to_s.underscore.to_sym
                 as = :datetime if as == :date_time
                 out << DbColumn.new(name, as, opts)
               end

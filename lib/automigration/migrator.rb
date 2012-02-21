@@ -38,7 +38,7 @@ module Automigration
           model_name = model_file.sub(path.to_s + '/', '').sub(/.rb$/, '')
           next if @@models_to_ignore.include?(model_name)
           model = model_name.camelize.constantize
-          if model && model.superclass == ActiveRecord::Base
+          if model && model.is_a?(Class) && model.superclass == ActiveRecord::Base
             model
           end
         end
