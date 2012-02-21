@@ -10,6 +10,7 @@ module Automigration
           @fields = nil
           @devise_fields = []
           @migration_attrs = []
+          @timestamps_added = false
 
           @fields_lookup = {}
         end
@@ -29,7 +30,8 @@ module Automigration
           @fields += slice_creater.fields
           @devise_fields = slice_creater.devise_fields
 
-          if options[:timestamps]
+          if !@timestamps_added && options[:timestamps]
+            @timestamps_added = true
             @fields << {:as => :datetime, :name => :created_at, :accessible => false}
             @fields << {:as => :datetime, :name => :updated_at, :accessible => false}
           end

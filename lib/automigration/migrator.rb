@@ -94,18 +94,6 @@ module Automigration
     end
 
     private
-    def get_all_models
-      out = []
-      Dir[Rails.root + "app/models/**/*.rb"].sort.each do |model_file|
-        model_name = model_file.sub((Rails.root + "app/models/").to_s, '').sub(/.rb$/, '')
-        model = model_name.camelize.constantize
-        if model && model.superclass == ActiveRecord::Base
-          out << model
-        end
-      end
-      out
-    end
-
     def translated_model(model)
       Class.new(ActiveRecord::Base).tap do |out|
         out.set_table_name((model.model_name.underscore + '_translation').pluralize)

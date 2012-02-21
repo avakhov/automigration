@@ -50,25 +50,10 @@ module Automigration
             model.attr_accessible @name
           end
         end
-
-        def edit(template, object, object_name)
-          edit_wrapper template, object, object_name do
-            template.text_field(object_name, name, :object => object)
-          end
-        end
-
-        def show(template, object, object_name)
-          show_wrapper template, object, object_name do
-            object.send(@name)
-          end
-        end
         # overload these methods if needed [end]
 
         def self.kind
-          if self == Base
-            raise "not call this method for Fields::Sys::Base class"
-          end
-          self.to_s.underscore.sub("automigration/fields/", '').to_sym
+          @kind ||= self.to_s.underscore.sub("automigration/fields/", '').to_sym
         end
 
         def self.from_meta(meta)
@@ -103,39 +88,6 @@ module Automigration
             :scale => @options[:scale], 
             :precision => @options[:precision]
           }))
-        end
-
-        def show_wrapper(template, object, object_name, &block)
-          self_name = @name
-
-          template.content_tag(:div, :class => 'field') do
-            template.safe_join [
-              template.content_tag(:b, label_title(object) + ':'),
-              '<br>'.html_safe,
-              yield
-            ]
-          end
-        end
-
-        def edit_wrapper(template, object, object_name, &block)
-          self_name = @name
-
-          template.content_tag(:div, :class => 'field') do
-            template.safe_join [
-              template.label(object_name, self_name, label_title(object)),
-              '<br>'.html_safe,
-              yield
-            ]
-          end
-        end
-
-        private
-        def label_title(object)
-          if @options.key?(I18n.locale)
-            @options[I18n.locale]
-          else
-            object.class.human_attribute_name(@name)
-          end
         end
       end
     end
