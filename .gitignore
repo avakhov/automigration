@@ -2,3 +2,5 @@
 .bundle
 Gemfile.lock
 pkg/*
+log/*.log
+.rbenv-version
