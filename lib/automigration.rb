@@ -1,4 +1,4 @@
-require 'rails/railtie'
+require 'rails/engine'
 require 'automigration/version'
 require 'automigration/migrator'
 require 'automigration/fields/sys/base'
@@ -17,7 +17,7 @@ require 'automigration/fields/sys/keeper'
 require 'automigration/fields/sys/slice_creater'
 
 module Automigration
-  class Railtie < ::Rails::Railtie
+  class Engine < ::Rails::Engine
     config.automigration = ActiveSupport::OrderedOptions.new
     config.automigration.system_tables = []
     config.automigration.models_load_path = []
