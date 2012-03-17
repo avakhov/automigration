@@ -8,7 +8,9 @@ module Automigration
       def extend_model!(model)
         super
 
-        model.belongs_to @name, :class_name => @options[:class_name]
+        model.belongs_to @name,
+          :class_name => @options[:class_name],
+          :inverse_of => @options[:inverse_of]
 
         if @options[:accessible]
           model.attr_accessible "#{@name}_id"
@@ -20,9 +22,8 @@ module Automigration
       end
 
       def valid_options_keys
-        super + [:class_name]
+        super + [:class_name, :inverse_of]
       end
-
     end
   end
 end
