@@ -42,3 +42,9 @@ use has_fields(:timestamps => false)
 ```
   rake db:auto # create db, create/delete tables, add/modify/delete columns, clean migration table
 ```
+
+## Changelog
+
+### Automigration 0.2.0 (March 18, 2012)
+
+* First release
