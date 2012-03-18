@@ -4,4 +4,6 @@ rvm:
 before_script:
   - psql -c 'create database automigration_test;' -U postgres
 env:
-- "PG_USER=postgres"
+  - "PG_USER=postgres"
+script:
+  - bundle exec rake test
