@@ -1,5 +1,9 @@
 # ActiveRecord automigrations
 
+[<img src="https://secure.travis-ci.org/boshie/automigration.png"/>](http://travis-ci.org/boshie/automigration)
+[<img src="https://gemnasium.com/boshie/automigration.png"/>](http://gemnasium.com/boshie/automigration)
+
+
 ## Overview
 
 ``` ruby
