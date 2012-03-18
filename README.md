@@ -45,6 +45,6 @@ use has_fields(:timestamps => false)
 
 ## Changelog
 
-### Automigration 0.2.0 (March 18, 2012)
+### Automigration 0.2.1 (March 18, 2012)
 
-* First release
+* First public release
