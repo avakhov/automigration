@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Automigration::VERSION
   s.authors     = ["Alexey Vakhov"]
   s.email       = ["vakhov@gmail.com"]
-  s.homepage    = "https://github.com/aperio-it/automigration"
+  s.homepage    = ""
   s.summary     = %q{AR automigration}
   s.description = %q{Store your migrations direct in models}
 
