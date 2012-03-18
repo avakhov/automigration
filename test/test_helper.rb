@@ -15,7 +15,8 @@ AutomigrateApplication.initialize!
 # AR connection
 ActiveRecord::Base.establish_connection(
   :adapter => 'postgresql',
-  :database => 'automigration_test'
+  :database => 'automigration_test',
+  :user => ENV['PG_USER']
 )
 
 # whitelist attributes
