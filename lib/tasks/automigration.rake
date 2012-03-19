@@ -1,8 +1,11 @@
 namespace :db do
-  desc "Auto migration"
   task :auto => :environment do
-    Rake::Task['db:create'].invoke
-    Automigration::Migrator.new.update_schema!
-    Rake::Task['db:migrate'].invoke
+    puts "[DEPRICATION] db:auto was deprecated. Use rake db:migrate instead it."
   end
 end
+
+task :automigration => :environment do
+  Automigration::Migrator.new.update_schema!
+end
+
+Rake::Task['db:migrate'].enhance ['automigration']

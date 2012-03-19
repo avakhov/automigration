@@ -41,12 +41,6 @@ end
 By default in models with has_fields always columns updated_at and created_at created. To ignore 
 use has_fields(:timestamps => false)
 
-## Rake task
-
-```
-  rake db:auto # create db, create/delete tables, add/modify/delete columns, clean migration table
-```
-
 ## Changelog
 
 ### Automigration 0.2.1 (March 18, 2012)
