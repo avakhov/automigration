@@ -1,21 +1,10 @@
+require 'active_support/descendants_tracker'
+
 module Automigration
   module Fields
     module Sys
       class Base
-        def self.all
-          [
-            Fields::BelongsTo,
-            Fields::Boolean,
-            Fields::Date,
-            Fields::Datetime,
-            Fields::Float,
-            Fields::Integer,
-            Fields::Password,
-            Fields::String,
-            Fields::Text,
-            Fields::Time
-          ]
-        end
+        extend ActiveSupport::DescendantsTracker
 
         attr_reader :options, :name
 
@@ -57,7 +46,7 @@ module Automigration
         end
 
         def self.from_meta(meta)
-          all.each do |field_class|
+          descendants.each do |field_class|
             if field_class.kind == meta[:as]
               return field_class.new(meta)
             end

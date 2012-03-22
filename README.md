@@ -1,23 +1,50 @@
 # ActiveRecord automigrations
 
-[<img src="https://secure.travis-ci.org/boshie/automigration.png"/>](http://travis-ci.org/boshie/automigration)
-[<img src="https://gemnasium.com/boshie/automigration.png"/>](http://gemnasium.com/boshie/automigration)
+Create/modify/delete Active Record columns without migrations. It works only with PostgreSQL.
 
+## Installation
 
-## Overview
+```
+gem 'automigration'
+```
+
+## Usage
+
+Add <tt>has_fields</tt> into your models:
 
 ``` ruby
 class User < ActiveRecord::Base
-  # attributes created via migration
-  migration_attr :secure_password, :auth_token
-  migration_attr :salt
-
   has_fields do |f|
     f.string :name
     f.integer :login_count
   end
 end
 ```
+
+Fire in console:
+
+``
+rake db:migrate
+```
+
+To keep some system tables add to <tt>config/application.rb</tt>
+
+```
+  config.automigration.system_tables << %w[hits very_system_table]
+```
+
+Supported fields:
+
+* belongs_to
+* boolean
+* date
+* datetime
+* float
+* integer
+* password
+* string
+* text
+* time
 
 ## Devise support
 
@@ -36,17 +63,16 @@ class User < ActiveRecord::Base
 end
 ```
 
+## Globalize2 support
+
+Automigration creates translation tables automatically.
+
 ## Timestamps
 
 By default in models with has_fields always columns updated_at and created_at created. To ignore 
 use has_fields(:timestamps => false)
 
-## Changelog
+## Status
 
-### Automigration 0.2.2 (March 19, 2012)
-
-* Remove db:auto rake task, enhance db:migrate instead
-
-### Automigration 0.2.1 (March 18, 2012)
-
-* First public release
+[<img src="https://secure.travis-ci.org/boshie/automigration.png"/>](http://travis-ci.org/boshie/automigration)
+[<img src="https://gemnasium.com/boshie/automigration.png"/>](http://gemnasium.com/boshie/automigration)

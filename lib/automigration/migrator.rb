@@ -1,48 +1,24 @@
 module Automigration
   class Migrator
     mattr_reader :system_tables
-    mattr_reader :migrations_path
-    mattr_reader :models_load_path
-    mattr_reader :models_to_ignore
+    mattr_reader :migration_paths
     @@system_tables = []
-    @@migrations_path = nil
-    @@models_load_path = []
-    @@models_to_ignore = []
+    @@migration_paths = []
 
     def self.set_system_tables(tables)
       @@system_tables = tables
     end
 
-    def self.set_migrations_path(path)
-      @@migrations_path = path
-    end
-
-    def self.set_models_load_path(paths)
-      @@models_load_path = paths
-    end
-
-    def self.set_models_to_ignore(models)
-      @@models_to_ignore = models
+    def self.set_migration_paths(paths)
+      @@migration_paths = paths
     end
 
     def self.all_tables
-      sql = "SELECT tablename FROM pg_tables WHERE schemaname = 'public';"
-      ActiveRecord::Base.connection.execute(sql).map do |row|
-        row["tablename"]
-      end
+      ActiveRecord::Base.connection.tables
     end
 
     def self.get_models
-      @@models_load_path.map do |path|
-        Dir[File.expand_path("**/*.rb", path)].map do |model_file|
-          model_name = model_file.sub(path.to_s + '/', '').sub(/.rb$/, '')
-          next if @@models_to_ignore.include?(model_name)
-          model = model_name.camelize.constantize
-          if model && model.is_a?(Class) && model.superclass == ActiveRecord::Base
-            model
-          end
-        end
-      end.flatten.compact
+      ActiveRecord::Base.descendants
     end
 
     def initialize(options = {})
@@ -76,13 +52,16 @@ module Automigration
       end
 
       # clean migration table
-      if con.table_exists?('schema_migrations') and @@migrations_path
+      if con.table_exists?('schema_migrations') && !@@migration_paths.empty?
         sql = "SELECT version FROM schema_migrations;"
 
         migrations_in_db = con.execute(sql).map{|row| row['version']}
-        current_migrations = Dir[File.expand_path("*.rb", @@migrations_path)].map do |m_file| 
-          File.basename(m_file) =~ /(\d{14})/
-          $1
+        current_migrations = []
+        @@migration_paths.each do |path|
+          Dir[File.expand_path("*.rb", path)].each do |m_file| 
+            File.basename(m_file) =~ /(\d{14})/
+            current_migrations << $1
+          end
         end
 
         (migrations_in_db - current_migrations).each do |m|

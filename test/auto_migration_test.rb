@@ -3,15 +3,13 @@ require 'test_helper'
 module Automigration
   class AutoMigrationTest < ActiveSupport::TestCase
     def setup
-      @migrations_path = Migrator.migrations_path
+      @migration_paths = Migrator.migration_paths
       @system_tables = Migrator.system_tables
-      @models_to_ignore = Migrator.models_to_ignore
     end
 
     def teardown
-      Migrator.set_migrations_path(@migrations_path)
+      Migrator.set_migration_paths(@migration_paths)
       Migrator.set_system_tables(@system_tables)
-      Migrator.set_models_to_ignore(@models_to_ignore)
 
       if connection.table_exists?('not_used_table')
         connection.drop_table('not_used_table')
@@ -34,15 +32,6 @@ module Automigration
 
       Migrator.new(:skip_output => true).update_schema!
       assert Migrator.all_tables.index('auto_migration1s')
-    end
-
-    def test_not_create_table_if_ignored
-      connection.drop_table('auto_migration1s')
-      assert !Migrator.all_tables.index('auto_migration1s')
-
-      Migrator.set_models_to_ignore(['auto_migration1'])
-      Migrator.new(:skip_output => true).update_schema!
-      assert !Migrator.all_tables.index('auto_migration1s')
     end
 
     def test_remove_unused_table
@@ -74,7 +63,7 @@ module Automigration
       File.open(migrations_dir + "/20110114120000_create_users.rb", "w"){|f| f.puts "# some text"}
       File.open(migrations_dir + "/20110114193000_create_projects.rb", "w"){|f| f.puts "# some text"}
 
-      Migrator.set_migrations_path(migrations_dir)
+      Migrator.set_migration_paths([migrations_dir])
 
       count_sql = "SELECT count(*) AS count FROM schema_migrations"
       assert_equal 3, connection.execute(count_sql)[0]['count'].to_i

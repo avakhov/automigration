@@ -28,7 +28,6 @@ Dir[File.expand_path("../models/*.rb", __FILE__)].each do |file|
 end
 
 # prepare tables for test models
-Automigration::Migrator.set_models_load_path([File.expand_path("../models", __FILE__)])
 Automigration::Migrator.all_tables.each do |table|
   ActiveRecord::Base.connection.drop_table(table)
 end

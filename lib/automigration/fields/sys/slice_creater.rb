@@ -10,7 +10,7 @@ module Automigration
           @devise_fields = []
         end
 
-        Fields::Sys::Base.all.each do |field_class|
+        Fields::Sys::Base.descendants.each do |field_class|
           define_method field_class.kind do |*args|
             options = args.extract_options!
             raise "wrong amount of args" unless args.size == 1
