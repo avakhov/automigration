@@ -30,15 +30,6 @@ describe "belongs to" do
     @simple.should == @obj.some
   end
 
-  it "raise if wrong name" do
-    lambda {
-      Automigration::Fields::Sys::Base.from_meta(
-        :as => :belongs_to,
-        :name => "simple_id"
-      )
-    }.should raise_error(RuntimeError)
-  end
-
   it "parent and children" do
     child = BelongsToModel.find(BelongsToModel.create(:parent => @obj).id)
     @obj.should == child.parent

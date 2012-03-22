@@ -14,9 +14,9 @@ Add <tt>has_fields</tt> into your models:
 
 ``` ruby
 class User < ActiveRecord::Base
-  has_fields do |f|
-    f.string :name
-    f.integer :login_count
+  has_fields do
+    string :name
+    integer :login_count
   end
 end
 ```
@@ -41,7 +41,6 @@ Supported fields:
 * datetime
 * float
 * integer
-* password
 * string
 * text
 * time
@@ -54,18 +53,14 @@ ActiveRecord::Base supports all types of devise fields with prefix devise\_
 class User < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :recoverable
 
-  has_fields do |t|
-    t.devise_database_authenticatable :null => false
-    t.devise_rememberable
-    t.devise_trackable
-    t.devise_recoverable
+  has_fields do
+    devise_database_authenticatable :null => false
+    devise_rememberable
+    devise_trackable
+    devise_recoverable
   end
 end
 ```
-
-## Globalize2 support
-
-Automigration creates translation tables automatically.
 
 ## Timestamps
 

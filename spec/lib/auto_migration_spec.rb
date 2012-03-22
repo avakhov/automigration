@@ -23,7 +23,7 @@ describe 'automigration' do
 
     FileUtils.rm_rf(migrations_dir)
 
-    if Automigration::Migrator.all_tables.index('auto_migration1s')
+    if ActiveRecord::Base.connection.tables.index('auto_migration1s')
       connection.drop_table('auto_migration1s')
     end
 
@@ -31,29 +31,29 @@ describe 'automigration' do
     Automigration::Migrator.new(:skip_output => true).update_schema!
   end
 
-  it 'create_table_if_need 123' do
+  it 'create_table_if_need' do
     connection.drop_table('auto_migration1s')
-    Automigration::Migrator.all_tables.index('auto_migration1s').should be_nil
+    ActiveRecord::Base.connection.tables.index('auto_migration1s').should be_nil
 
     Automigration::Migrator.new(:skip_output => true).update_schema!
-    Automigration::Migrator.all_tables.index('auto_migration1s').should_not be_nil
+    ActiveRecord::Base.connection.tables.index('auto_migration1s').should_not be_nil
   end
 
   it 'remove_unused_table' do
     connection.create_table('not_used_table')
-    Automigration::Migrator.all_tables.index('not_used_table').should_not be_nil
+    ActiveRecord::Base.connection.tables.index('not_used_table').should_not be_nil
 
     Automigration::Migrator.new(:skip_output => true).update_schema!
-    Automigration::Migrator.all_tables.index('not_used_table').should be_nil
+    ActiveRecord::Base.connection.tables.index('not_used_table').should be_nil
   end
 
   it 'not_remove_unused_table_if_it_checked_as_not_migratable' do
     connection.create_table('not_used_table')
     Automigration::Migrator.set_system_tables(%w(not_used_table))
-    Automigration::Migrator.all_tables.index('not_used_table').should_not be_nil
+    ActiveRecord::Base.connection.tables.index('not_used_table').should_not be_nil
 
     Automigration::Migrator.new(:skip_output => true).update_schema!
-    Automigration::Migrator.all_tables.index('not_used_table').should_not be_nil
+    ActiveRecord::Base.connection.tables.index('not_used_table').should_not be_nil
   end
 
   it 'clean_unused_migration' do
