@@ -1,18 +1,16 @@
-require 'bundler/gem_tasks'
-require 'rake/testtask'
+#!/usr/bin/env rake
+require "bundler/gem_tasks"
 
-Rake::TestTask.new :test do |t|
-  t.libs << 'lib'
-  t.libs << 'test'
-  t.test_files = FileList['test/**/*_test.rb']
-  t.verbose = true
-end
+require "rubygems"
+require "bundler/setup"
+require 'rspec/core/rake_task'
 
 namespace :db do
-  desc 'Recreate test db'
-  task :prepare do
-    `dropdb automigration_test`
-    `createdb automigration_test`
+  desc "prepare db for specs"
+  task "prepare" do
+    system "cd spec/dummy && bundle exec rake db:drop"
+    system "cd spec/dummy && bundle exec rake db:create db:migrate db:test:prepare"
   end
 end
 
+RSpec::Core::RakeTask.new(:spec)

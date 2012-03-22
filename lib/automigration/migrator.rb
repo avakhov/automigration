@@ -2,8 +2,10 @@ module Automigration
   class Migrator
     mattr_reader :system_tables
     mattr_reader :migration_paths
+    mattr_reader :model_paths
     @@system_tables = []
     @@migration_paths = []
+    @@model_paths = []
 
     def self.set_system_tables(tables)
       @@system_tables = tables
@@ -13,18 +15,24 @@ module Automigration
       @@migration_paths = paths
     end
 
-    def self.all_tables
-      ActiveRecord::Base.connection.tables
+    def self.set_model_paths(paths)
+      @@model_paths = paths
     end
 
-    def self.get_models
-      ActiveRecord::Base.descendants
+    def self.all_tables
+      ActiveRecord::Base.connection.tables
     end
 
     def initialize(options = {})
       options.assert_valid_keys(:skip_output, :models)
 
-      @models = options[:models] || self.class.get_models
+      @@model_paths.each do |path|
+        Dir[File.expand_path("**/*.rb", path)].each do |file|
+          require file
+        end
+      end
+
+      @models = options[:models] || ActiveRecord::Base.descendants
       @options = options
     end
 

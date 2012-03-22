@@ -1,0 +1,14 @@
+development:
+  adapter: postgresql
+  database: automigration
+  user: <%= ENV['PG_USER'] %>
+
+test:
+  adapter: postgresql
+  database: automigration_test
+  user: <%= ENV['PG_USER'] %>
+
+production:
+  adapter: postgresql
+  database: automigration
+  user: <%= ENV['PG_USER'] %>
