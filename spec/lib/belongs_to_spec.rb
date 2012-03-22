@@ -11,37 +11,37 @@ describe "belongs to" do
   end
 
   it "properties" do
-    assert_nil @obj.simple
-    assert_nil @obj.simple_id
+    @obj.simple.should be_nil
+    @obj.simple_id.should be_nil
   end
 
   it "mass assignment by object" do
     @obj.update_attributes(:simple => @simple)
-    assert_equal @simple.id, @obj.simple_id 
+    @simple.id.should == @obj.simple_id 
   end
 
   it "mass assignment by id" do
     @obj.update_attributes(:simple_id => @simple.id)
-    assert_equal @simple.id, @obj.simple_id 
+    @simple.id.should == @obj.simple_id 
   end
 
   it "use different class name" do
     @obj.update_attributes(:some => @simple)
-    assert_equal @simple, @obj.some
+    @simple.should == @obj.some
   end
 
   it "raise if wrong name" do
-    assert_raise RuntimeError do
+    lambda {
       Automigration::Fields::Sys::Base.from_meta(
         :as => :belongs_to,
         :name => "simple_id"
       )
-    end
+    }.should raise_error(RuntimeError)
   end
 
   it "parent and children" do
     child = BelongsToModel.find(BelongsToModel.create(:parent => @obj).id)
-    assert_equal @obj, child.parent
-    assert_equal @obj.id, child.parent_id
+    @obj.should == child.parent
+    @obj.id.should == child.parent_id
   end
 end

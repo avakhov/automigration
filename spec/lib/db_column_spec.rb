@@ -16,6 +16,6 @@ describe 'db column' do
       :scale => 1,
       :precision => 2)
 
-    assert a.the_same?(b)
+    a.the_same?(b).should be_true
   end
 end
