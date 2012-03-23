@@ -1,6 +1,6 @@
 # Change Log
 
-## Automigration 1.0.0 (unreleased)
+## Automigration 1.0.0 (March 23, 2012)
 
 * Clean API
 
