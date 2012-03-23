@@ -23,14 +23,14 @@ end
 
 Fire in console:
 
-``
+```
 rake db:migrate
 ```
 
 To keep some system tables add to <tt>config/application.rb</tt>
 
 ```
-  config.automigration.system_tables << %w[hits very_system_table]
+  config.automigration.system_tables += %w[hits very_system_table]
 ```
 
 Supported fields:
@@ -64,8 +64,8 @@ end
 
 ## Timestamps
 
-By default in models with has_fields always columns updated_at and created_at created. To ignore 
-use has_fields(:timestamps => false)
+By default in models with <tt>has_fields</tt> always columns updated_at and created_at created. To ignore 
+use <tt>has_fields(:timestamps => false)</tt>
 
 ## Status
 
