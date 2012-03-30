@@ -3,4 +3,4 @@ source "http://rubygems.org"
 # Specify your gem's dependencies in automigration.gemspec
 gemspec
 
-require 'devise'
+gem 'devise'
