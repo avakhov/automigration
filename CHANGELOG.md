@@ -1,5 +1,9 @@
 # Change Log
 
+## Automigration 1.0.1 (March 30, 2012)
+
+* Devise fields works well
+
 ## Automigration 1.0.0 (March 23, 2012)
 
 * Clean API

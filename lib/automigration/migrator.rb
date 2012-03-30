@@ -24,7 +24,8 @@ module Automigration
 
       @@model_paths.each do |path|
         Dir[File.expand_path("**/*.rb", path)].each do |file|
-          require file
+          name = file.sub(path.to_s + '/', '').sub(Regexp.new(File.extname(file) + '$'), '')
+          ActiveSupport::Dependencies.constantize(name.classify)
         end
       end
 
