@@ -1,6 +1,6 @@
 namespace :db do
   task :auto => :environment do
-    puts "[DEPRICATION] db:auto was deprecated. Use rake db:migrate instead it."
+    puts "[DEPRICATION] db:auto was deprecated. Use rake db:migrate instead."
   end
 end
 
