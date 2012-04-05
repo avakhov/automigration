@@ -1,14 +1,14 @@
 development:
-  adapter: postgresql
-  database: automigration
-  user: <%= ENV['PG_USER'] %>
+  adapter: <%= ENV['DB_ADAPTER'] || 'postgresql'%>
+  database: <%= (ENV['DB_NAME'] || 'automigration') + (ENV['DB_ADAPTER'] == 'sqlite3' ? '.sqlite3' : '')%>
+  user: <%= ENV['DB_USER'] %>
 
 test:
-  adapter: postgresql
-  database: automigration_test
-  user: <%= ENV['PG_USER'] %>
+  adapter: <%= ENV['DB_ADAPTER'] || 'postgresql'%>
+  database: <%= (ENV['DB_NAME'] || 'automigration') + '_test' + (ENV['DB_ADAPTER'] == 'sqlite3' ? '.sqlite3' : '') %>
+  user: <%= ENV['DB_USER'] %>
 
 production:
-  adapter: postgresql
-  database: automigration
-  user: <%= ENV['PG_USER'] %>
+  adapter: <%= ENV['DB_ADAPTER'] || 'postgresql'%>
+  database: <%= (ENV['DB_NAME'] || 'automigration') + (ENV['DB_ADAPTER'] == 'sqlite3' ? '.sqlite3' : '')%>
+  user: <%= ENV['DB_USER'] %>

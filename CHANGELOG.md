@@ -1,5 +1,9 @@
 # Change Log
 
+## Automigration (unreleased)
+
+* SQLite support
+
 ## Automigration 1.0.1 (March 30, 2012)
 
 * Devise fields works well

@@ -1,6 +1,7 @@
 # ActiveRecord automigrations
 
-Create/modify/delete Active Record columns without migrations. It works only with PostgreSQL.
+Create/modify/delete Active Record columns without migrations.
+It works with PostgreSQL and SQLite.
 
 ## Installation
 
