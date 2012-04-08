@@ -1,6 +1,6 @@
 # Change Log
 
-## Automigration (unreleased)
+## Automigration 1.0.2 (April 8, 2012)
 
 * SQLite support
 
