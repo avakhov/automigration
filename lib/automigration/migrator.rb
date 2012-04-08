@@ -19,15 +19,19 @@ module Automigration
       @@model_paths = paths
     end
 
-    def initialize(options = {})
-      options.assert_valid_keys(:skip_output, :models)
-
+    def self.load_all_models!
       @@model_paths.each do |path|
         Dir[File.expand_path("**/*.rb", path)].each do |file|
           name = file.sub(path.to_s + '/', '').sub(Regexp.new(File.extname(file) + '$'), '')
           ActiveSupport::Dependencies.constantize(name.classify)
         end
       end
+    end
+
+    def initialize(options = {})
+      options.assert_valid_keys(:skip_output, :models)
+
+      self.class.load_all_models!
 
       @models = options[:models] || ActiveRecord::Base.descendants
       @options = options
