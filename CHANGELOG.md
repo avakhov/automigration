@@ -2,7 +2,7 @@
 
 ## Automigration (unreleased)
 
-* Devise 2.1.0 support
+* Remove specific devise support (Devise >= 2.1.0 doesn't need any additional support)
 
 ## Automigration 1.0.2 (April 8, 2012)
 

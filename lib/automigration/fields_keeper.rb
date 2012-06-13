@@ -6,7 +6,6 @@ module Automigration
     def initialize(model)
       @model = model
       @fields = nil
-      @devise_fields = []
       @migration_attrs = []
       @timestamps_added = false
 
@@ -26,7 +25,6 @@ module Automigration
 
       @fields ||= []
       @fields += dsl.fields
-      @devise_fields = dsl.devise_fields
 
       if !@timestamps_added && options[:timestamps]
         @timestamps_added = true
@@ -54,32 +52,9 @@ module Automigration
     end
 
     def field_db_columns
-      out = []
-
-      out += @fields.map do |field|
+      @fields.map do |field|
         Field.to_db_columns(field)
       end.flatten
-
-      if defined?(Devise::Schema) && !@devise_fields.empty?
-        devise_schema = Class.new do
-          include Devise::Schema
-
-          define_method :apply_devise_schema do |*args|
-            opts = args.extract_options!
-            raise "wrong arguments" unless args.size == 2
-            name = args[0]
-            as = args[1].to_s.underscore.to_sym
-            as = :datetime if as == :date_time
-            out << Automigration::DbColumn.new(name, as, opts)
-          end
-        end.new
-
-        @devise_fields.each do |meta|
-          devise_schema.send(meta[:as].to_s.sub(/^devise_/, ''), *meta[:args])
-        end
-      end
-
-      out
     end
   end
 end

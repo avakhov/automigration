@@ -46,23 +46,6 @@ Supported fields:
 * text
 * time
 
-## Devise support
-
-ActiveRecord::Base supports all types of devise fields with prefix devise\_
-
-``` ruby
-class User < ActiveRecord::Base
-  devise :database_authenticatable, :rememberable, :trackable, :validatable, :recoverable
-
-  has_fields do
-    devise_database_authenticatable :null => false
-    devise_rememberable
-    devise_trackable
-    devise_recoverable
-  end
-end
-```
-
 ## Timestamps
 
 By default in models with <tt>has_fields</tt> always columns updated_at and created_at created. To ignore 
