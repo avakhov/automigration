@@ -1,6 +1,6 @@
 # Change Log
 
-## Automigration (unreleased)
+## Automigration 1.0.3 (Juni 13, 2012)
 
 * Remove specific devise support (Devise >= 2.1.0 doesn't need any additional support)
 
