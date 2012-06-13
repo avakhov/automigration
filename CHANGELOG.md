@@ -1,5 +1,9 @@
 # Change Log
 
+## Automigration (unreleased)
+
+* Devise 2.1.0 support
+
 ## Automigration 1.0.2 (April 8, 2012)
 
 * SQLite support

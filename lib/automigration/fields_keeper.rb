@@ -60,7 +60,7 @@ module Automigration
         Field.to_db_columns(field)
       end.flatten
 
-      if defined?(Devise::Schema)
+      if defined?(Devise::Schema) && !@devise_fields.empty?
         devise_schema = Class.new do
           include Devise::Schema
 
