@@ -57,7 +57,7 @@ module Automigration
     def self.extend_model!(model, field)
       type = field[:as]
       name = field[:name]
-      accessible = (field[:accessible] == nil) || field[:accessible]
+      accessible = field[:accessible]
       
       if type == :belongs_to
         model.belongs_to name, :class_name => field[:class_name], :inverse_of => field[:inverse_of]

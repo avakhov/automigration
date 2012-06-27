@@ -1,4 +1,6 @@
 class AutoMigration1 < ActiveRecord::Base
+  attr_accessible :string_field, :integer_field
+
   has_fields do
     integer :integer_field
     float :float_field

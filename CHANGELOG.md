@@ -1,5 +1,9 @@
 # Change Log
 
+## Automigration (unreleased)
+
+* Doesn't mark fields as accessible by default
+
 ## Automigration 1.0.3 (Juni 13, 2012)
 
 * Remove specific devise support (Devise >= 2.1.0 doesn't need any additional support)
