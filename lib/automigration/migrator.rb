@@ -57,7 +57,7 @@ module Automigration
       if connection.table_exists?('schema_migrations') && !@@migration_paths.empty?
         sql = "SELECT version FROM schema_migrations;"
 
-        migrations_in_db = connection.execute(sql).map{|row| row['version']}
+        migrations_in_db = connection.execute(sql).map{|row| row.is_a?(Hash) ? row['version'] : row.first }
         current_migrations = []
         @@migration_paths.each do |path|
           Dir[File.expand_path("*.rb", path)].each do |m_file| 

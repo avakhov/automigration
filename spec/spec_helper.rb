@@ -8,6 +8,8 @@ require 'database_cleaner'
 require 'factory_girl_rails'
 
 RSpec.configure do |config|
+  config.use_transactional_fixtures = false
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
   end

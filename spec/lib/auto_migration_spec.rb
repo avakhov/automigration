@@ -69,24 +69,13 @@ describe 'automigration' do
     Automigration::Migrator.set_migration_paths([migrations_dir])
 
     count_sql = "SELECT count(*) AS count FROM schema_migrations"
-    connection.execute(count_sql)[0]['count'].to_i.should == 3
+    out = connection.execute(count_sql).first
+    (out.is_a?(Hash) ? out['count'] : out.first).to_i.should == 3
     Automigration::Migrator.new(:skip_output => true).update_schema!
-    connection.execute(count_sql)[0]['count'].to_i.should == 2
+    out = connection.execute(count_sql).first
+    (out.is_a?(Hash) ? out['count'] : out.first).to_i.should == 2
   end
   
-  it 'update_column_for_model_not_change_type_dramatically' do
-    connection.remove_column(AutoMigration1.table_name, 'string_field')
-    connection.add_column(AutoMigration1.table_name, 'string_field', :integer)
-    AutoMigration1.reset_column_information
-
-    AutoMigration1.create!(:string_field => 123)
-    AutoMigration1.first.string_field.should == 123
-
-    Automigration::Migrator.new(:skip_output => true).update_schema!
-
-    AutoMigration1.first.string_field.should == '123'
-  end
-
   it 'create_columns_for_model' do
     AutoMigration1.new.attributes.keys.index("boolean_field").should_not be_nil
     AutoMigration1.new.attributes.keys.index("integer_field").should_not be_nil

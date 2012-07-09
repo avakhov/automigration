@@ -2,7 +2,8 @@
 
 ## Automigration (unreleased)
 
-* Works with ruby 1.8.7
+* Supports 1.8.7
+* MySQL support
 
 ## Automigration 1.1.0 (Juni 27, 2012)
 
