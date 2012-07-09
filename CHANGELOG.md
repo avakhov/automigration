@@ -1,5 +1,9 @@
 # Change Log
 
+## Automigration (unreleased)
+
+* Works with ruby 1.8.7
+
 ## Automigration 1.1.0 (Juni 27, 2012)
 
 * Doesn't mark fields as accessible by default

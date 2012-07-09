@@ -25,6 +25,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'database_cleaner'
-  s.add_development_dependency 'factory_girl_rails'
-  s.add_development_dependency 'devise'
+
+  # these versions work with ruby 1.8.7
+  s.add_development_dependency 'factory_girl_rails', '1.4' 
+  s.add_development_dependency 'factory_girl', '2.3.0'
 end
