@@ -1,6 +1,6 @@
 # Change Log
 
-## Automigration (unreleased)
+## Automigration 1.1.1 (July 9, 2012)
 
 * Supports 1.8.7
 * MySQL support
