@@ -20,7 +20,7 @@ module Automigration
     end
 
     def to_options
-      options.reject{|k, v| v.nil?}
+      options.reject{|k, v| k != :default && v.nil?}
     end
 
     private
