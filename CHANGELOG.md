@@ -1,6 +1,6 @@
 # Change Log
 
-## Automigration (unreleased)
+## Automigration 1.1.3 (September 24, 2012)
 
 * Add decimal type support
 

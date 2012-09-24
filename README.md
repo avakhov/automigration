@@ -40,6 +40,7 @@ Supported fields:
 * boolean
 * date
 * datetime
+* decimal
 * float
 * integer
 * string
