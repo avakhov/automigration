@@ -1,5 +1,9 @@
 # Change Log
 
+## Automigration (unreleased)
+
+* Add decimal type support
+
 ## Automigration 1.1.2 (August 10, 2012)
 
 * Allow to set default value to nil

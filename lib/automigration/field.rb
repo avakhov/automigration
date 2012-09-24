@@ -5,6 +5,7 @@ module Automigration
       boolean
       date
       datetime
+      decimal
       float
       integer
       string
