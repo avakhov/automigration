@@ -1,5 +1,9 @@
 # Change Log
 
+## Automigration 1.1.4 (August 2, 2013)
+
+* Support Rails 4
+
 ## Automigration 1.1.3 (September 24, 2012)
 
 * Add decimal type support
